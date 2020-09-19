@@ -5,23 +5,38 @@ import { RandomPick } from "../../api";
 export default class extends React.Component {
   state = {
     randomRoom: null,
-    inputName: "",
+    Name: "",
     error: null,
-    loading: true,
+    loading: false,
+    Entrance: false,
   };
 
-  handleSubmit = () => {
-    const { inputName } = this.state;
-    if (inputName !== "") {
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { Name } = this.state;
+    if (Name !== "") {
       this.inputName();
     }
   };
 
+  updateTerm = (event) => {
+    const {
+      target: { value },
+    } = event;
+    this.setState({
+      Name: value,
+    });
+  };
+
   inputName = async () => {
+    this.setState({ loading: true, Entrance: false });
+    localStorage.setItem("name", this.state.Name);
     try {
       const { data } = await RandomPick.randomPick();
+      localStorage.setItem("dormitory", data);
       this.setState({
         randomRoom: data,
+        Entrance: true,
       });
     } catch {
       this.setState({
@@ -35,14 +50,16 @@ export default class extends React.Component {
   };
 
   render() {
-    const { RandomPick, inputName, error, loading } = this.state;
+    const { randomRoom, Name, error, loading, Entrance } = this.state;
     return (
       <HomePresenter
-        RandomPick={RandomPick}
-        inputName={inputName}
+        randomRoom={randomRoom}
+        Name={Name}
         error={error}
         loading={loading}
+        Entrance={Entrance}
         handleSubmit={this.handleSubmit}
+        updateTerm={this.updateTerm}
       />
     );
   }
