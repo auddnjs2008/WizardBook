@@ -9,7 +9,8 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   background-image: url(${hallway});
-  background-size: cover;
+  background-size: content;
+  /* background-repeat: no-repeat; */
   background-position: center center;
   display: flex;
   flex-direction: column;

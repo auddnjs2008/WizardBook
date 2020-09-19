@@ -19,7 +19,7 @@ const Container = styled.div`
   grid-auto-rows: 1fr;
   justify-items: center;
   align-items: center;
-  background-color: #1e272e;
+  background-color: #353b48;
 `;
 const Name = styled.div`
   position: absolute;
@@ -131,6 +131,7 @@ const Gryffindor = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+  background-color: #1e272e;
 `;
 const Slytherin = styled.div`
   width: 55%;
@@ -139,6 +140,7 @@ const Slytherin = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+  background-color: #1e272e;
 `;
 const Hufflepuff = styled.div`
   width: 55%;
@@ -147,6 +149,7 @@ const Hufflepuff = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+  background-color: #1e272e;
 `;
 const Ravenclaw = styled.div`
   width: 60%;
@@ -155,6 +158,7 @@ const Ravenclaw = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+  background-color: #1e272e;
 `;
 
 const SLink = styled(Link)`
@@ -164,13 +168,15 @@ const SLink = styled(Link)`
   justify-content: center;
   align-items: center;
   transition: all 0.15s ease-in-out;
+  background-color: #1e272e;
+
   &:hover {
     transform: scale(1.1, 1.1);
   }
 `;
 const Mark = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 210px;
+  height: 210px;
   position: absolute;
   top: 50%;
   left: 50%;
