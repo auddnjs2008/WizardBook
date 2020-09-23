@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Loading from "Components/Loader";
-import Gryfin from "../../images/그리핀도르.png";
-import Slythe from "../../images/슬리데린.png";
-import Huffle from "../../images/후풀푸프.png";
-import Raven from "../../images/래번클루.png";
+
+import Lion from "../../images/사자.gif";
+import Snake from "../../images/뱀.gif";
+import Rat from "../../images/오소리.gif";
+import Bird from "../../images/새.gif";
 import Hogwart from "../../images/호그와트마크.png";
 import Message from "../../images/올빼미.png";
-
+import Magic from "../../images/마법2.png";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -125,40 +126,40 @@ const MessageWrapper = styled.div`
 `;
 
 const Gryffindor = styled.div`
-  width: 60%;
-  height: 70%;
-  background-image: url(${Gryfin});
+  width: 100%;
+  height: 100%;
+  background-image: url(${Lion});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-  background-color: #1e272e;
+  background-color: #150000;
 `;
 const Slytherin = styled.div`
-  width: 55%;
-  height: 70%;
-  background-image: url(${Slythe});
+  width: 100%;
+  height: 100%;
+  background-image: url(${Snake});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-  background-color: #1e272e;
+  background-color: #061000;
 `;
 const Hufflepuff = styled.div`
-  width: 55%;
-  height: 71%;
-  background-image: url(${Huffle});
+  width: 100%;
+  height: 100%;
+  background-image: url(${Rat});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-  background-color: #1e272e;
+  background-color: #261c00;
 `;
 const Ravenclaw = styled.div`
-  width: 60%;
-  height: 70%;
-  background-image: url(${Raven});
+  width: 100%;
+  height: 100%;
+  background-image: url(${Bird});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-  background-color: #1e272e;
+  background-color: #010001;
 `;
 
 const SLink = styled(Link)`
@@ -174,6 +175,49 @@ const SLink = styled(Link)`
     transform: scale(1.1, 1.1);
   }
 `;
+
+const ALink = styled(Link)`
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-image: url(${Magic});
+  background-size: contain;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  @keyframes spellOnEffect {
+    0% {
+      transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+
+    100% {
+      transform: translate(-50%, -50%) scale(7) rotate(360deg);
+    }
+  }
+
+  @keyframes spellOutEffect {
+    0% {
+      transform: translate(-50%, -50%) scale(7) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1) rotate(360deg);
+    }
+  }
+
+  @keyframes none {
+  }
+  transform-origin: center center;
+  animation: ${(props) =>
+      props.bgimg === 1
+        ? "spellOnEffect"
+        : props.bgimg === 2
+        ? "spellOutEffect"
+        : "none"}
+    1s linear forwards;
+`;
+
 const Mark = styled.div`
   width: 210px;
   height: 210px;
@@ -186,7 +230,15 @@ const Mark = styled.div`
   background-repeat: no-repeat;
   background-position: center center;
 `;
-const InfoPresenter = ({ name, dormitory, error, loading }) =>
+const InfoPresenter = ({
+  name,
+  dormitory,
+  error,
+  backgroundImg,
+  loading,
+  handleClick,
+  handleMouseOut,
+}) =>
   loading ? (
     <Loading />
   ) : (
@@ -207,6 +259,12 @@ const InfoPresenter = ({ name, dormitory, error, loading }) =>
         </SLink>
         <Mark></Mark>
         <MessageWrapper dormitory={dormitory}></MessageWrapper>
+        <ALink
+          to="/spell"
+          onMouseEnter={handleClick}
+          onMouseLeave={handleMouseOut}
+          bgimg={backgroundImg}
+        ></ALink>
       </>
     </Container>
   );
@@ -215,7 +273,10 @@ InfoPresenter.propTypes = {
   name: PropTypes.string,
   dormitory: PropTypes.string,
   error: PropTypes.string,
+  handleClick: PropTypes.func.isRequired,
+  handleMouseOut: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  backgroundImg: PropTypes.number,
 };
 
 export default InfoPresenter;
