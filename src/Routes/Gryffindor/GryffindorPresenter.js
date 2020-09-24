@@ -11,6 +11,12 @@ import Header from "../../images/맥고나걸.jpg";
 import Ghost from "../../images/해리포터귀신.jpg";
 import Dormitory3 from "../../images/레드기숙사.jpg";
 
+import {
+  faAngle,
+  faAngleLeft,
+  faAngleRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const BackgroundImg = styled.div`
   width: 100vw;
   height: 100vh;
@@ -28,13 +34,15 @@ const BackgroundImg = styled.div`
 
 const GridWrapper = styled.div`
   display: grid;
+
   height: 90%;
   grid-template-columns: 1fr 3fr;
 `;
 
 const SubGridWrapper = styled.div`
   display: grid;
-  grid-template-rows: 1fr 2fr;
+  position: relative;
+  grid-template-rows: 1fr 1.5fr;
   margin-left: 20px;
 `;
 
@@ -56,24 +64,46 @@ const SubContainer = styled.div`
 `;
 
 const ImageSlider = styled.div`
-  width: 700px;
+  width: 50%;
   height: 400px;
-  border: 1px solid black;
   display: flex;
-  overflow: hidden;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+    behavior: "smooth";
+  }
 `;
 
 const SliderItems = styled.div`
-  width: 700px;
+  width: 100%;
+  flex-shrink: 0;
   height: 100%;
-  border: 1px solid red;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-right: 10px;
   img {
-    width: 400px;
+    width: auto;
     height: auto;
-    /* max-width: 350px;
-    max-height: 350px; */
+    max-width: 100%;
+    max-height: 100%;
   }
+`;
+
+const SliderLeftArrow = styled.span`
+  position: absolute;
+  top: 63%;
+  left: -25px;
+  font-size: 50px;
+`;
+
+const SliderRightArrow = styled.span`
+  position: absolute;
+  top: 63%;
+  right: 50%;
+  transform: translateX(100%);
+  font-size: 50px;
 `;
 
 const BannerImage = styled.div`
@@ -155,7 +185,16 @@ const Colors = styled.div`
   }
 `;
 
-const GryffindorPresenter = ({ houseInfo, error, loading }) =>
+const GryffindorPresenter = ({
+  houseInfo,
+  error,
+  loading,
+  Length,
+  value,
+  SliderRef,
+  leftSliderControl,
+  rightSliderControl,
+}) =>
   loading ? (
     <Loader />
   ) : (
@@ -199,20 +238,26 @@ const GryffindorPresenter = ({ houseInfo, error, loading }) =>
               </div>
             </Colors>
           </SubContainer>
-          <ImageSlider>
+          <ImageSlider ref={SliderRef} movieValue={value}>
             <SliderItems>
-              <img src={Dormitory}></img>
+              <img src={Dormitory} alt=""></img>
             </SliderItems>
             <SliderItems>
-              <img src={Header}></img>
+              <img src={Header} alt=""></img>
             </SliderItems>
             <SliderItems>
-              <img src={Ghost}></img>
+              <img src={Ghost} alt=""></img>
             </SliderItems>
             <SliderItems>
-              <img src={Dormitory3}></img>
+              <img src={Dormitory3} alt=""></img>
             </SliderItems>
           </ImageSlider>
+          <SliderLeftArrow onClick={leftSliderControl}>
+            <FontAwesomeIcon icon={faAngleLeft} />
+          </SliderLeftArrow>
+          <SliderRightArrow onClick={rightSliderControl}>
+            <FontAwesomeIcon icon={faAngleRight} />
+          </SliderRightArrow>
         </SubGridWrapper>
       </GridWrapper>
     </Container>
@@ -222,6 +267,10 @@ GryffindorPresenter.propTypes = {
   houseInfo: PropTypes.object,
   error: PropTypes.string,
   loading: PropTypes.bool.isRequired,
+  Length: PropTypes.number,
+  value: PropTypes.number,
+  leftSliderControl: PropTypes.func,
+  rightSliderControl: PropTypes.func,
 };
 
 export default GryffindorPresenter;
