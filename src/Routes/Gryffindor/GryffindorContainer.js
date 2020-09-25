@@ -2,6 +2,8 @@ import React from "react";
 import { GryffindorApi } from "../../api";
 import GryffindorPresenter from "./GryffindorPresenter";
 
+let specialValue = 0;
+
 export default class extends React.Component {
   state = {
     houseInfo: null,
@@ -14,13 +16,15 @@ export default class extends React.Component {
 
   ScrollSpeeder = () => {
     const { SliderRef } = this.state;
-    let value = 0;
     const step = 50;
-    setTimeout(() => {
-      value = value + step;
+
+    let repeat = setInterval(() => {
+      specialValue += step;
+
+      if (specialValue >= SliderRef.current.offsetWidth) {
+        clearInterval(repeat);
+      }
     }, 100);
-    if (value < SliderRef.current.offsetWidth) this.ScrollSpeeder();
-    else return value;
   };
 
   leftSliderControl = () => {
@@ -32,7 +36,8 @@ export default class extends React.Component {
         Length: Length - SliderRef.current.offsetWidth,
         value: SliderRef.current.offsetWidth * -1,
       });
-      SliderRef.current.scrollLeft -= SliderRef.current.offsetWidth + 10;
+      SliderRef.current.scrollLeft =
+        SliderRef.current.scrollLeft - SliderRef.current.offsetWidth - 10;
     } else {
       this.setState({
         value: 0,
@@ -40,6 +45,7 @@ export default class extends React.Component {
     }
   };
   rightSliderControl = () => {
+    console.log(this.ScrollSpeeder());
     const { Length, SliderRef } = this.state;
     if (
       Length <=
@@ -49,7 +55,8 @@ export default class extends React.Component {
         Length: Length + SliderRef.current.offsetWidth,
         value: SliderRef.current.offsetWidth,
       });
-      SliderRef.current.scrollLeft += SliderRef.current.offsetWidth + 10;
+      SliderRef.current.scrollLeft =
+        SliderRef.current.scrollLeft + SliderRef.current.offsetWidth + 10;
     } else {
       this.setState({
         value: 0,
@@ -70,7 +77,6 @@ export default class extends React.Component {
 
   render() {
     const { houseInfo, loading, error, Length, value, SliderRef } = this.state;
-    console.log(Length, value);
 
     return (
       <GryffindorPresenter

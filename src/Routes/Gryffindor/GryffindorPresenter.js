@@ -34,7 +34,7 @@ const BackgroundImg = styled.div`
 
 const GridWrapper = styled.div`
   display: grid;
-
+  user-select: none;
   height: 90%;
   grid-template-columns: 1fr 3fr;
 `;
@@ -88,6 +88,11 @@ const SliderItems = styled.div`
     height: auto;
     max-width: 100%;
     max-height: 100%;
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
 `;
 
@@ -240,16 +245,16 @@ const GryffindorPresenter = ({
           </SubContainer>
           <ImageSlider ref={SliderRef} movieValue={value}>
             <SliderItems>
-              <img src={Dormitory} alt=""></img>
+              <img src={Dormitory} alt="img"></img>
             </SliderItems>
             <SliderItems>
-              <img src={Header} alt=""></img>
+              <img src={Header} alt="img"></img>
             </SliderItems>
             <SliderItems>
-              <img src={Ghost} alt=""></img>
+              <img src={Ghost} alt="img"></img>
             </SliderItems>
             <SliderItems>
-              <img src={Dormitory3} alt=""></img>
+              <img src={Dormitory3} alt="img"></img>
             </SliderItems>
           </ImageSlider>
           <SliderLeftArrow onClick={leftSliderControl}>
