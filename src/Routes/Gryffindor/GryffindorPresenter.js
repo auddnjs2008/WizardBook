@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 import Loader from "Components/Loader";
-import Banner from "../../images/그리핀도르배너.png";
-
 import Dormitory2 from "../../images/레드기숙사.gif";
 import Flag from "../../images/그리핀도르깃발.png";
 import Dormitory from "../../images/사자기숙사.jpeg";
 import Header from "../../images/맥고나걸.jpg";
 import Ghost from "../../images/해리포터귀신.jpg";
 import Dormitory3 from "../../images/레드기숙사.jpg";
+import Harry from "../../images/해리.png";
 
 import {
   faAngle,
@@ -64,62 +64,25 @@ const SubContainer = styled.div`
 `;
 
 const ImageSlider = styled.div`
-  width: 50%;
-  height: 400px;
-  display: flex;
-  overflow: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-    behavior: "smooth";
-  }
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  grid-template-rows:repeat(2,1fr);
+  
 `;
 
 const SliderItems = styled.div`
-  width: 100%;
-  flex-shrink: 0;
-  height: 100%;
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-  img {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100%;
-    -khtml-user-select: none;
-    -o-user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
+  width:200px;
+  height:200px;
+  object-fit:cover;
+  img{
+    width:200px;
+  height:200px;
+  object-fit:cover
   }
 `;
 
-const SliderLeftArrow = styled.span`
-  position: absolute;
-  top: 63%;
-  left: -25px;
-  font-size: 50px;
-`;
 
-const SliderRightArrow = styled.span`
-  position: absolute;
-  top: 63%;
-  right: 50%;
-  transform: translateX(100%);
-  font-size: 50px;
-`;
-
-const BannerImage = styled.div`
-  width: 200px;
-  height: 50px;
-  margin: 0 auto;
-  background-image: url(${Banner});
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-`;
 const FlagImage = styled.div`
   width: 210px;
   height: 400px;
@@ -158,6 +121,8 @@ const ValuesWrapper = styled.ul`
   }
 `;
 
+
+
 const Colors = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -190,15 +155,43 @@ const Colors = styled.div`
   }
 `;
 
+const SLink = styled(Link)`
+  position:absolute;
+  bottom:50px;
+  left:50px;
+  color:white;
+  @keyframes sky{
+    0%{
+      transform:translateY(-50px);
+
+    }
+    50%{
+      transform:translateY(-70px);
+    }
+    100%{
+
+    }
+  }
+  &:hover{
+    transform:translateY(-50px);
+    animation:sky 2s linear infinite;
+  }
+  transition: all 1s linear;
+  img{
+    width:100px;
+    height:190px;
+    object-fit:cover;
+  }
+`;
+
+
+
+
+
 const GryffindorPresenter = ({
   houseInfo,
   error,
   loading,
-  Length,
-  value,
-  SliderRef,
-  leftSliderControl,
-  rightSliderControl,
 }) =>
   loading ? (
     <Loader />
@@ -243,7 +236,7 @@ const GryffindorPresenter = ({
               </div>
             </Colors>
           </SubContainer>
-          <ImageSlider ref={SliderRef} movieValue={value}>
+          <ImageSlider >
             <SliderItems>
               <img src={Dormitory} alt="img"></img>
             </SliderItems>
@@ -257,14 +250,14 @@ const GryffindorPresenter = ({
               <img src={Dormitory3} alt="img"></img>
             </SliderItems>
           </ImageSlider>
-          <SliderLeftArrow onClick={leftSliderControl}>
-            <FontAwesomeIcon icon={faAngleLeft} />
-          </SliderLeftArrow>
-          <SliderRightArrow onClick={rightSliderControl}>
-            <FontAwesomeIcon icon={faAngleRight} />
-          </SliderRightArrow>
+       
         </SubGridWrapper>
       </GridWrapper>
+    <SLink to="/Gryffindor/students">
+       <img src={Harry} alt="img"></img>  
+       <div>Gryffindor Student </div>        
+    </SLink>
+    
     </Container>
   );
 
@@ -272,10 +265,6 @@ GryffindorPresenter.propTypes = {
   houseInfo: PropTypes.object,
   error: PropTypes.string,
   loading: PropTypes.bool.isRequired,
-  Length: PropTypes.number,
-  value: PropTypes.number,
-  leftSliderControl: PropTypes.func,
-  rightSliderControl: PropTypes.func,
 };
 
 export default GryffindorPresenter;
