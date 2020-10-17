@@ -12,7 +12,7 @@ export default class extends React.Component{
     async componentDidMount(){
         try{
             const {data} = await SlytherinApi.characters();
-            console.log(data);
+           
             this.setState({studentInfo: data});
         }catch(error){
             this.setState({error:"Can't find Info"});

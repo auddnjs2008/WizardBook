@@ -3,7 +3,7 @@ import axios from "axios";
 const Gryffindor = "5a05e2b252f721a3cf2ea33f";
 const Slytherin = "5a05dc8cd45bd0a11bd5e071";
 const Hufflepuff = "5a05dc58d45bd0a11bd5e070";
-const Ravenclaw = "a05da69d45bd0a11bd5e06f";
+const Ravenclaw = "5a05da69d45bd0a11bd5e06f";
 
 const api = axios.create({
   baseURL: "https://www.potterapi.com/v1/",

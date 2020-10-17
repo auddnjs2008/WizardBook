@@ -10,7 +10,7 @@ export default class extends React.Component {
    async componentDidMount(){
     try{
       const {data} =await SlytherinApi.houseInfo();
-      console.log(data);
+      
       this.setState({houseInfo:data[0]});
     }catch(error){
       this.setState({error:"Can't find Information"});
