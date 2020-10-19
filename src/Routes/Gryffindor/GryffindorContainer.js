@@ -5,12 +5,45 @@ import GryffindorPresenter from "./GryffindorPresenter";
 
 
 export default class extends React.Component {
+ 
   state = {
     houseInfo: null,
     loading: true,
     error: null,
+    slider:React.createRef()
   };
 
+   scrollSpeeder= (where)=>{
+    const node= this.state.slider.current; 
+    let speeder=0;
+     let speed = setInterval(()=>{
+       speeder +=5;
+       
+       if(where === "left" && node.scrollLeft !==0)
+       {  
+          node.scrollLeft -=speeder; 
+       } 
+
+       else if(where ==="right" && node.scrollRight !==node.offsetWidth)
+       {
+         node.scrollLeft +=speeder;
+       }
+       
+       if(speeder ===70) {
+        clearInterval(speed);
+     }},30);
+   } 
+
+
+
+
+  handleLeftClick=()=>{
+    this.scrollSpeeder("left");
+  }
+
+  handleRightClick=()=>{
+    this.scrollSpeeder("right");
+  }
   
 
   async componentDidMount() {
@@ -26,18 +59,16 @@ export default class extends React.Component {
   }
 
   render() {
-    const { houseInfo, loading, error, Length, value, SliderRef } = this.state;
+    const { houseInfo, loading, error,slider } = this.state;
 
     return (
       <GryffindorPresenter
         houseInfo={houseInfo}
         loading={loading}
         error={error}
-        Length={Length}
-        value={value}
-        SliderRef={SliderRef}
-        leftSliderControl={this.leftSliderControl}
-        rightSliderControl={this.rightSliderControl}
+        slider={slider}
+        handleLeftClick={this.handleLeftClick}
+        handleRightClick={this.handleRightClick}
       ></GryffindorPresenter>
     );
   }

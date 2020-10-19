@@ -16,7 +16,7 @@ import Hufflepuff from "../Routes/Hufflepuff";
 import HupStudent from "../Routes/HupStudent";
 import Ravenclaw from "../Routes/Ravenclaw";
 import RavStudent from "../Routes/RavStudent";
-import Detail from "../Routes/Detail";
+import Spell from "../Routes/Spell";
 export default () => (
   <Router>
     <Switch>
@@ -30,7 +30,8 @@ export default () => (
       <Route path="/Hufflepuff" exact component={Hufflepuff} />
       <Route path="/Hufflepuff/students" component={HupStudent}/>      
       <Route path="/Ravenclaw" exact component={Ravenclaw} />
-      <Route path="/Ravenclaw/students" component={RavStudent}/>      
+      <Route path="/Ravenclaw/students" component={RavStudent}/>
+      <Route path="/spell" component={Spell}/>      
       <Redirect from="*" to="/" />
     </Switch>
   </Router>

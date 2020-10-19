@@ -4,6 +4,9 @@ const globalStyles = createGlobalStyle`
     ${reset};
     *{
         box-sizing:border-box;
+    }
+    body{
+        overflow-x:hidden;
     }    
 `;
 

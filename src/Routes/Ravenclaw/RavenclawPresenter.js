@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import Loader from "Components/Loader";
+import Loader2 from "Components/Loader2";
+
 import Dormitory from "Components/Dormitory";
 import dormitory from "../../images/래번클루기숙사.gif";
 import img1 from "../../images/루나러브굿.jpg";
@@ -11,6 +13,13 @@ import img3 from "../../images/초챙.jpg";
 import img4 from "../../images/래번파랑.jpg";
 import img5 from "../../images/래번파랑2.jpg";
 import student from "../../images/래번학생.png";
+
+import {
+  faAngle,
+  faAngleLeft,
+  faAngleRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const BackgroundImage=styled.div`
     width:100vw;
     height:100vh;
@@ -25,15 +34,49 @@ const BackgroundImage=styled.div`
 
 const Container = styled.div``;
 
+const IconLeft = styled.div`
+    position:absolute;
+    bottom:100px;
+    left:20px;
+    color:white;
+    font-size:55px;
+`;
+
+const IconRight = styled.div`
+  position:absolute;
+  bottom:100px;
+  right:20px;
+  color:white;
+  font-size:55px;
+`;
+
+
 const ImageWrapper = styled.div`
 margin-top:20px;
+background-color:rgba(0,0,0,0.6);
+overflow:auto;
     display:flex;
+
+    &::-webkit-scrollbar{
+      display:none;
+    }
     img{
         width:400px;
         height:400px;
-        object-fit:cover;
+        object-fit:contain;
+       
     }
 
+`;
+
+const ImageSlider =styled.div`
+  display:flex;
+  img{
+        width:400px;
+        height:400px;
+        object-fit:contain;
+       
+    }
 `;
 
 const SLink = styled(Link)`
@@ -71,21 +114,25 @@ const SLink = styled(Link)`
 
 
 
-const RavenclawPresenter = ({houseInfo,loading,error}) =>
-loading ? <Loader/> : <Container>
+const RavenclawPresenter = ({houseInfo,loading,error,slider,handleLeftClick,handleRightClick}) =>
+loading ? <Loader2/> : <Container>
 <BackgroundImage></BackgroundImage>   
 <Dormitory houseInfo={houseInfo}></Dormitory>
- <ImageWrapper>
-     <img src={img1}/>
-     <img src={img2}/>
-     <img src={img3}/>
-     <img src={img4}/>
-     <img src={img5}/>
- </ImageWrapper>
+<ImageWrapper ref={slider}>
+  <ImageSlider>
+    <img src={img1}/>
+    <img src={img2}/>
+    <img src={img3}/>
+    <img src={img4}/>
+    <img src={img5}/>
+  </ImageSlider>  
+</ImageWrapper>
  <SLink to="/Ravenclaw/students">
      <img src={student}/>
      <div>Ravenclaw Student</div>
  </SLink>
+ <IconLeft><FontAwesomeIcon icon={faAngleLeft} onClick={handleLeftClick}/></IconLeft>
+        <IconRight><FontAwesomeIcon icon={faAngleRight} onClick={handleRightClick}/></IconRight>
 </Container>
 
 
@@ -93,7 +140,9 @@ loading ? <Loader/> : <Container>
 RavenclawPresenter.propTypes={
     houseInfo:PropTypes.object,
     loading:PropTypes.bool.isRequired,
-    error:PropTypes.string
+    error:PropTypes.string,
+    handleRightClick:PropTypes.func,
+    handleLeftClick:PropTypes.func,
 }
 
 
